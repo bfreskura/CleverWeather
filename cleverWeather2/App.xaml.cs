@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -50,60 +51,65 @@ namespace cleverWeather2
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+           
+
+
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    this.DebugSettings.EnableFrameRateCounter = true;
+                }
 #endif
 
-            Frame rootFrame = Window.Current.Content as Frame;
+                Frame rootFrame = Window.Current.Content as Frame;
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                // Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (rootFrame == null)
                 {
-                    // TODO: Load state from previously suspended application
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    rootFrame = new Frame();
+
+                    // TODO: change this value to a cache size that is appropriate for your application
+                    rootFrame.CacheSize = 1;
+
+                    if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        // TODO: Load state from previously suspended application
+                    }
+
+                    // Place the frame in the current Window
+                    Window.Current.Content = rootFrame;
                 }
 
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
-            if (rootFrame.Content == null)
-            {
-                // Removes the turnstile navigation for startup.
-                if (rootFrame.ContentTransitions != null)
+                if (rootFrame.Content == null)
                 {
-                    this.transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
+                    // Removes the turnstile navigation for startup.
+                    if (rootFrame.ContentTransitions != null)
                     {
-                        this.transitions.Add(c);
+                        this.transitions = new TransitionCollection();
+                        foreach (var c in rootFrame.ContentTransitions)
+                        {
+                            this.transitions.Add(c);
+                        }
+                    }
+
+                    rootFrame.ContentTransitions = null;
+                    rootFrame.Navigated += this.RootFrame_FirstNavigated;
+
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
                     }
                 }
 
-                rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                // Ensure the current window is active
+                Window.Current.Activate();
 
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
-
-            // Ensure the current window is active
-            Window.Current.Activate();
+            
         }
 
         /// <summary>

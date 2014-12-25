@@ -88,6 +88,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Day.cs" />
+    <Compile Include="Model\UpdateViewToday.cs" />
+    <Compile Include="Model\UpdateView.cs" />
+    <Compile Include="Model\Struktura.cs" />
+    <Compile Include="ShellToast.cs" />
     <Compile Include="TomorrowPage.xaml.cs">
       <DependentUpon>TomorrowPage.xaml</DependentUpon>
     </Compile>
@@ -95,7 +100,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ViewModelToday.cs" />
+    <Compile Include="ViewModels\ViewModelTomorrow.cs" />
+    <Compile Include="Model\WeatherDesc.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -117,6 +123,7 @@
     <Content Include="Images\Clothes\1080_720p\summer_shoes.png" />
     <Content Include="Images\Clothes\1080_720p\sunglasses.png" />
     <Content Include="Images\Clothes\1080_720p\tshirt_short.png" />
+    <Content Include="Images\Clothes\1080_720p\winter_gloves.png" />
     <Content Include="Images\Clothes\1080_720p\winter_hat.png" />
     <Content Include="Images\Clothes\1080_720p\winter_shoes.png" />
     <Content Include="Images\Weather\1080_720p\cloud.png" />
@@ -144,6 +151,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

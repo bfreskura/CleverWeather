@@ -11,7 +11,7 @@ namespace cleverWeather2
 {
 
     [DataContract]
-    class ViewModelToday : INotifyPropertyChanged
+    class ViewModelTomorrow : INotifyPropertyChanged
     {
         /*
          * Icons and city*/
@@ -42,6 +42,8 @@ namespace cleverWeather2
             NotifyPropertyChanged("ClothesShoes");
             }
         }
+
+        /*
         private string _clothesAccessori1;
         [DataMember]
         public string ClothesAccessori1
@@ -60,6 +62,7 @@ namespace cleverWeather2
             NotifyPropertyChanged("ClothesAccessori2");
             }
         }
+         * */
         private string _clothesAccessori3;
         [DataMember]
         public string ClothesAccessori3
@@ -131,9 +134,9 @@ namespace cleverWeather2
             NotifyPropertyChanged("MorningTemperature");
             }
         }
-        private int _morningPercentage;
+        private string _morningPercentage;
         [DataMember]
-        public int MorningPercentage
+        public string MorningPercentage
         {
             get { return _morningPercentage; }
             set { _morningPercentage = value;
@@ -192,9 +195,9 @@ namespace cleverWeather2
             NotifyPropertyChanged("AfternoonTemperature");
             }
         }
-        private int _afternoonPercentage;
+        private string _afternoonPercentage;
         [DataMember]
-        public int AfternoonPercentage
+        public string AfternoonPercentage
         {
             get { return _afternoonPercentage; }
             set { _afternoonPercentage = value;
@@ -252,9 +255,9 @@ namespace cleverWeather2
             NotifyPropertyChanged("NightTemperature");
             }
         }
-        private int _nightPercentage;
+        private string _nightPercentage;
         [DataMember]
-        public int NightPercentage
+        public string NightPercentage
         {
             get { return _nightPercentage; }
             set { _nightPercentage = value;

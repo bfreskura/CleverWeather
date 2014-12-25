@@ -1,10 +1,15 @@
-﻿using System;
+﻿using cleverWeather2.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,11 +27,19 @@ namespace cleverWeather2
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        
+
+        ViewModelTomorrow _viewModel;
+        bool _isNewPageInstance = false;
+        public Dictionary<string, Object> State = new Dictionary<string, object>();
+        UpdateViewToday dataToday;
+        public StatusBarProgressIndicator ProgressIndicator;
+
         public MainPage()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            _isNewPageInstance = true;
         }
 
         /// <summary>
@@ -36,18 +49,72 @@ namespace cleverWeather2
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
 
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
+            // If _isNewPageInstance is true, the page constuctor has been called, so
+            // state may need to be restored.
+            if (_isNewPageInstance)
+            {
+                if (_viewModel == null)
+                {
+                    if (State.Count > 0)
+                    {
+                        _viewModel = (ViewModelTomorrow)State["ViewModelToday"];
+                    }
+                    else
+                    {
+                        _viewModel = new ViewModelTomorrow();
+                    }
+                }
+                DataContext = _viewModel;
+            }
+
+
+            // Set _isNewPageInstance to false. If the user navigates back to this page
+            // and it has remained in memory, this value will continue to be false.
+            _isNewPageInstance = false;
+
+
+            //Call to Refresh class which refreshes view
+            ShowLoadingIndicator();
+            
+            dataToday = new UpdateViewToday(_viewModel);
+            HideLoadingIndicator();
+
         }
 
-        private void tomorrowButton_Click(object sender, RoutedEventArgs e)
+
+        public async void ShowLoadingIndicator() {
+            await StatusBar.GetForCurrentView().ShowAsync();
+            var progInd = StatusBar.GetForCurrentView().ProgressIndicator;
+            progInd.Text= "Downlaoding Weather Data";
+            await progInd.ShowAsync();
+        }
+
+        public async void HideLoadingIndicator() {
+           var progInd = StatusBar.GetForCurrentView().ProgressIndicator;
+           await  progInd.HideAsync();
+        }
+
+       
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            // If this is a back navigation, the page will be discarded, so there
+            // is no need to save state.
+            if (e.NavigationMode != NavigationMode.Back)
+            {
+                // Save the ViewModel variable in the page's State dictionary.
+                State["ViewModelToday"] = _viewModel;
+            }
+        }
+
+
+        private void tomorrow_button_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(TomorrowPage));
         }
     }
+
+
+
+
 }
