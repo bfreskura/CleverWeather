@@ -8,8 +8,10 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.Connectivity;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -32,14 +34,17 @@ namespace cleverWeather2
     {
         ViewModelTomorrow _viewModel;
         bool _isNewPageInstance = false;
-        public Dictionary<string, Object> State = new Dictionary<string, object>();
-        UpdateView dataTomorrow;
+        public Dictionary<string, Object> State = new Dictionary<string, Object>();
+        UpdateViewTomorrow dataTomorrow;
+        private bool isConnected, isLocationEnabled;
 
 
         public TomorrowPage()
         {
 
             this.InitializeComponent();
+
+            this.NavigationCacheMode = NavigationCacheMode.Required;
             _isNewPageInstance = true;
 
         }
@@ -58,18 +63,32 @@ namespace cleverWeather2
             // state may need to be restored.
             if (_isNewPageInstance)
             {
+
                 if (_viewModel == null)
                 {
                     if (State.Count > 0)
                     {
                         _viewModel = (ViewModelTomorrow)State["ViewModelTomorrow"];
+
                     }
                     else
                     {
                         _viewModel = new ViewModelTomorrow();
+
                     }
+
+
                 }
+                //ShowLoadingIndicator();
+
+                StoryBoardTomorrow.Begin();
+                dataTomorrow = new UpdateViewTomorrow(_viewModel);
+
+                // HideLoadingIndicator();
+
                 DataContext = _viewModel;
+
+
             }
 
 
@@ -77,46 +96,78 @@ namespace cleverWeather2
             // and it has remained in memory, this value will continue to be false.
             _isNewPageInstance = false;
 
-            //Call to Refresh class which refreshes view
-          //  dataTomorrow = new UpdateView(_viewModel);
 
-            
-                 ShowLoadingIndicator();
-            
-            dataTomorrow = new UpdateView(_viewModel);
-            HideLoadingIndicator();
 
         }
 
 
-        public async void ShowLoadingIndicator() {
-            await StatusBar.GetForCurrentView().ShowAsync();
-            var progInd = StatusBar.GetForCurrentView().ProgressIndicator;
-            progInd.Text= "Downloading Weather Data";
-            await progInd.ShowAsync();
-        }
 
-        public async void HideLoadingIndicator() {
-           var progInd = StatusBar.GetForCurrentView().ProgressIndicator;
-           await  progInd.HideAsync();
-        }
-        
-       
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             // If this is a back navigation, the page will be discarded, so there
             // is no need to save state.
-            if (e.NavigationMode != NavigationMode.Back)
+            if (e.NavigationMode == NavigationMode.Back)
             {
                 // Save the ViewModel variable in the page's State dictionary.
                 State["ViewModelTomorrow"] = _viewModel;
             }
         }
 
-        private void TextBlock_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
 
+
+        public async Task checkLocation()
+        {
+            Geolocator geolocator = new Geolocator();
+            // Debug.WriteLine(geolocator.LocationStatus);
+            if (geolocator.LocationStatus == PositionStatus.Disabled)
+            {
+                isLocationEnabled = false;
+                await new MessageDialog("Location services are disabled. Enable them in Settings > Location").ShowAsync();
+            }
+            else
+                isLocationEnabled = true;
         }
+
+        private async Task CheckInternet()
+        {
+            isConnected = NetworkInterface.GetIsNetworkAvailable();
+            if (!isConnected)
+            {
+                await new MessageDialog("No internet connection avaliable.").ShowAsync();
+            }
+            else
+            {
+                ConnectionProfile InternetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
+                NetworkConnectivityLevel connection = InternetConnectionProfile.GetNetworkConnectivityLevel();
+                if (connection == NetworkConnectivityLevel.None || connection == NetworkConnectivityLevel.LocalAccess)
+                {
+                    isConnected = false;
+                }
+            }
+        }
+
+
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            await checkLocation();
+            await CheckInternet();
+            if (isConnected == true && isLocationEnabled == true)
+            {
+
+
+                dataTomorrow = new UpdateViewTomorrow(_viewModel);
+                //StoryBoardTomorrow.Begin();
+
+            }
+        }
+
+        private void AppBarButtonLegend_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(IconLegend));
+        }
+
+
 
 
 

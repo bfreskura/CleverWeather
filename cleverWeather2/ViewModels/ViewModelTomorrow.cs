@@ -20,8 +20,10 @@ namespace cleverWeather2
         public string ClothesTorso
         {
             get { return _clothesTorso; }
-            set { _clothesTorso = value;
-            NotifyPropertyChanged("ClothesTorso");
+            set
+            {
+                _clothesTorso = value;
+                NotifyPropertyChanged("ClothesTorso");
             }
         }
         private string _clothesLegs;
@@ -29,8 +31,10 @@ namespace cleverWeather2
         public string ClothesLegs
         {
             get { return _clothesLegs; }
-            set { _clothesLegs = value;
-            NotifyPropertyChanged("ClothesLegs");
+            set
+            {
+                _clothesLegs = value;
+                NotifyPropertyChanged("ClothesLegs");
             }
         }
         private string _clothesShoes;
@@ -38,8 +42,10 @@ namespace cleverWeather2
         public string ClothesShoes
         {
             get { return _clothesShoes; }
-            set { _clothesShoes = value;
-            NotifyPropertyChanged("ClothesShoes");
+            set
+            {
+                _clothesShoes = value;
+                NotifyPropertyChanged("ClothesShoes");
             }
         }
 
@@ -68,8 +74,10 @@ namespace cleverWeather2
         public string ClothesAccessori3
         {
             get { return _clothesAccessori3; }
-            set { _clothesAccessori3 = value;
-            NotifyPropertyChanged("ClothesAccessori3");
+            set
+            {
+                _clothesAccessori3 = value;
+                NotifyPropertyChanged("ClothesAccessori3");
             }
         }
 
@@ -78,8 +86,10 @@ namespace cleverWeather2
         public string City
         {
             get { return _city; }
-            set { _city = value;
-            NotifyPropertyChanged("City");
+            set
+            {
+                _city = value;
+                NotifyPropertyChanged("City");
             }
         }
 
@@ -92,8 +102,10 @@ namespace cleverWeather2
         public string MorningAccessori1
         {
             get { return _morningAccessori1; }
-            set { _morningAccessori1 = value;
-            NotifyPropertyChanged("MorningAccessori1");
+            set
+            {
+                _morningAccessori1 = value;
+                NotifyPropertyChanged("MorningAccessori1");
             }
         }
         private string _morningAccessori2;
@@ -101,8 +113,10 @@ namespace cleverWeather2
         public string MorningAccessori2
         {
             get { return _morningAccessori2; }
-            set { _morningAccessori2 = value;
-            NotifyPropertyChanged("MorningAccessori2");
+            set
+            {
+                _morningAccessori2 = value;
+                NotifyPropertyChanged("MorningAccessori2");
             }
         }
         private string _morningAccessori3;
@@ -110,8 +124,35 @@ namespace cleverWeather2
         public string MorningAccessori3
         {
             get { return _morningAccessori3; }
-            set { _morningAccessori3 = value;
-            NotifyPropertyChanged("MorningAccessori3");
+            set
+            {
+                _morningAccessori3 = value;
+                NotifyPropertyChanged("MorningAccessori3");
+            }
+        }
+
+        private string _morningAccessori4;
+        [DataMember]
+        public string MorningAccessori4
+        {
+            get { return _morningAccessori4; }
+            set
+            {
+                _morningAccessori4 = value;
+                NotifyPropertyChanged("MorningAccessori4");
+            }
+        }
+
+
+        private string _morningAccessori5;
+        [DataMember]
+        public string MorningAccessori5
+        {
+            get { return _morningAccessori5; }
+            set
+            {
+                _morningAccessori5 = value;
+                NotifyPropertyChanged("MorningAccessori5");
             }
         }
 
@@ -121,8 +162,10 @@ namespace cleverWeather2
         public string MorningWeather
         {
             get { return _morningWeather; }
-            set { _morningWeather = value;
-            NotifyPropertyChanged("MorningWeather");
+            set
+            {
+                _morningWeather = value;
+                NotifyPropertyChanged("MorningWeather");
             }
         }
         private int _morningTemperature;
@@ -130,8 +173,10 @@ namespace cleverWeather2
         public int MorningTemperature
         {
             get { return _morningTemperature; }
-            set { _morningTemperature = value;
-            NotifyPropertyChanged("MorningTemperature");
+            set
+            {
+                _morningTemperature = value;
+                NotifyPropertyChanged("MorningTemperature");
             }
         }
         private string _morningPercentage;
@@ -139,8 +184,10 @@ namespace cleverWeather2
         public string MorningPercentage
         {
             get { return _morningPercentage; }
-            set { _morningPercentage = value;
-            NotifyPropertyChanged("MorningPercentage");
+            set
+            {
+                _morningPercentage = value;
+                NotifyPropertyChanged("MorningPercentage");
             }
         }
 
@@ -153,8 +200,10 @@ namespace cleverWeather2
         public string AfternoonAccessori1
         {
             get { return _afternoonAccessori1; }
-            set { _afternoonAccessori1 = value;
-            NotifyPropertyChanged("AfternoonAccessori1");
+            set
+            {
+                _afternoonAccessori1 = value;
+                NotifyPropertyChanged("AfternoonAccessori1");
             }
         }
         private string _afternoonAccessori2;
@@ -162,8 +211,10 @@ namespace cleverWeather2
         public string AfternoonAccessori2
         {
             get { return _afternoonAccessori2; }
-            set { _afternoonAccessori2 = value;
-            NotifyPropertyChanged("AfternoonAccessori2");
+            set
+            {
+                _afternoonAccessori2 = value;
+                NotifyPropertyChanged("AfternoonAccessori2");
             }
         }
         private string _afternoonAccessori3;
@@ -171,19 +222,47 @@ namespace cleverWeather2
         public string AfternoonAccessori3
         {
             get { return _afternoonAccessori3; }
-            set { _afternoonAccessori3 = value;
-            NotifyPropertyChanged("AfternoonAccessori3");
+            set
+            {
+                _afternoonAccessori3 = value;
+                NotifyPropertyChanged("AfternoonAccessori3");
             }
         }
 
+        private string _afternoonAccessori4;
+        [DataMember]
+        public string AfternoonAccessori4
+        {
+            get { return _afternoonAccessori4; }
+            set
+            {
+                _afternoonAccessori4 = value;
+                NotifyPropertyChanged("AfternoonAccessori4");
+            }
+        }
+
+
+        private string _afternoonAccessori5;
+        [DataMember]
+        public string AfternoonAccessori5
+        {
+            get { return _afternoonAccessori5; }
+            set
+            {
+                _afternoonAccessori5 = value;
+                NotifyPropertyChanged("AfternoonAccessori5");
+            }
+        }
 
         private string _afternoonWeather;
         [DataMember]
         public string AfternoonWeather
         {
             get { return _afternoonWeather; }
-            set { _afternoonWeather = value;
-            NotifyPropertyChanged("AfternoonWeather");
+            set
+            {
+                _afternoonWeather = value;
+                NotifyPropertyChanged("AfternoonWeather");
             }
         }
         private int _afternoonTemperature;
@@ -191,8 +270,10 @@ namespace cleverWeather2
         public int AfternoonTemperature
         {
             get { return _afternoonTemperature; }
-            set { _afternoonTemperature = value;
-            NotifyPropertyChanged("AfternoonTemperature");
+            set
+            {
+                _afternoonTemperature = value;
+                NotifyPropertyChanged("AfternoonTemperature");
             }
         }
         private string _afternoonPercentage;
@@ -200,8 +281,10 @@ namespace cleverWeather2
         public string AfternoonPercentage
         {
             get { return _afternoonPercentage; }
-            set { _afternoonPercentage = value;
-            NotifyPropertyChanged("AfternoonPercentage");
+            set
+            {
+                _afternoonPercentage = value;
+                NotifyPropertyChanged("AfternoonPercentage");
             }
         }
 
@@ -214,8 +297,10 @@ namespace cleverWeather2
         public string NightAccessori1
         {
             get { return _nightAccessori1; }
-            set { _nightAccessori1 = value;
-            NotifyPropertyChanged("NightAccessori1");
+            set
+            {
+                _nightAccessori1 = value;
+                NotifyPropertyChanged("NightAccessori1");
             }
         }
         private string _nightAccessori2;
@@ -223,8 +308,10 @@ namespace cleverWeather2
         public string NightAccessori2
         {
             get { return _nightAccessori2; }
-            set { _nightAccessori2 = value;
-            NotifyPropertyChanged("NightAccessori2");
+            set
+            {
+                _nightAccessori2 = value;
+                NotifyPropertyChanged("NightAccessori2");
             }
         }
         private string _nightAccessori3;
@@ -232,8 +319,34 @@ namespace cleverWeather2
         public string NightAccessori3
         {
             get { return _nightAccessori3; }
-            set { _nightAccessori3 = value;
-            NotifyPropertyChanged("NightAccessori3");
+            set
+            {
+                _nightAccessori3 = value;
+                NotifyPropertyChanged("NightAccessori3");
+            }
+        }
+
+        private string _nightAccessori4;
+        [DataMember]
+        public string NightAccessori4
+        {
+            get { return _nightAccessori4; }
+            set
+            {
+                _nightAccessori4 = value;
+                NotifyPropertyChanged("NightAccessori4");
+            }
+        }
+
+        private string _nightAccessori5;
+        [DataMember]
+        public string NightAccessori5
+        {
+            get { return _nightAccessori5; }
+            set
+            {
+                _nightAccessori5 = value;
+                NotifyPropertyChanged("NightAccessori5");
             }
         }
 
@@ -242,8 +355,10 @@ namespace cleverWeather2
         public string NightWeather
         {
             get { return _nightWeather; }
-            set { _nightWeather = value;
-            NotifyPropertyChanged("NightWeather");
+            set
+            {
+                _nightWeather = value;
+                NotifyPropertyChanged("NightWeather");
             }
         }
         private int _nightTemperature;
@@ -251,8 +366,10 @@ namespace cleverWeather2
         public int NightTemperature
         {
             get { return _nightTemperature; }
-            set { _nightTemperature = value;
-            NotifyPropertyChanged("NightTemperature");
+            set
+            {
+                _nightTemperature = value;
+                NotifyPropertyChanged("NightTemperature");
             }
         }
         private string _nightPercentage;
@@ -260,8 +377,10 @@ namespace cleverWeather2
         public string NightPercentage
         {
             get { return _nightPercentage; }
-            set { _nightPercentage = value;
-            NotifyPropertyChanged("NightPercentage");
+            set
+            {
+                _nightPercentage = value;
+                NotifyPropertyChanged("NightPercentage");
             }
         }
 

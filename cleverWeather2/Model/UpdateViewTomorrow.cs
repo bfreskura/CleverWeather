@@ -11,29 +11,36 @@ using Windows.UI.Popups;
 
 namespace cleverWeather2.Model
 {
-    class  UpdateViewToday
+    /// <summary>
+    /// Updates the View with latest data
+    /// </summary>
+    class UpdateViewTomorrow
     {
         ViewModelTomorrow _viewModel;
-        private bool isConnected, isLocationEnabled;
+        private bool isConnected = NetworkInterface.GetIsNetworkAvailable();
+        private bool isLocationEnabled;
         //Constructor
-        public UpdateViewToday(ViewModelTomorrow vmt)
+        public UpdateViewTomorrow(ViewModelTomorrow vmt)
         {
             this._viewModel = vmt;
 
             GetData();
-
-
         }
 
+
         /* Explained problem with async and await
-        * http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
-        * */
+         * http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+         * */
 
 
+        /// <summary>
+        /// Checks if locations services are enabled in settings
+        /// </summary>
+        /// <returns></returns>
         public async Task checkLocation()
         {
             Geolocator geolocator = new Geolocator();
-            
+            // Debug.WriteLine(geolocator.LocationStatus);
             if (geolocator.LocationStatus == PositionStatus.Disabled)
             {
                 isLocationEnabled = false;
@@ -43,6 +50,12 @@ namespace cleverWeather2.Model
                 isLocationEnabled = true;
         }
 
+
+
+        /// <summary>
+        /// Checks for internet connection
+        /// If there is none, sets variable isConnected to false, true otherwise
+        /// </summary>
         private async Task CheckInternet()
         {
 
@@ -72,21 +85,20 @@ namespace cleverWeather2.Model
 
         }
 
-
+        /// <summary>
+        /// Call to CheckInternet method
+        /// If the connection is established, start refreshing 
+        /// </summary>
         public async void GetData()
         {
-            
-            await CheckInternet();
             await checkLocation();
-
-            if (isConnected == true && isLocationEnabled==true)
+            await CheckInternet();
+            if (isConnected == true && isLocationEnabled == true)
             {
                 var myTask = await Calculation.posao();
                 RefreshData(myTask);
             }
-
         }
-
 
         /// <summary>
         /// Refresh the UI based on other methods in this class (loads icons);
@@ -101,9 +113,9 @@ namespace cleverWeather2.Model
             /**
              * Find Top Clothes Main
              * */
-            for (int i = 0; i < days.Today[0].Top.Length; i++)
+            for (int i = 0; i < days.Tomorrow[0].Top.Length; i++)
             {
-                if (days.Today[0].Top[i])
+                if (days.Tomorrow[0].Top[i])
                 {
                     switch (i)
                     {
@@ -117,8 +129,6 @@ namespace cleverWeather2.Model
                         case 2:
                             _viewModel.ClothesTorso = "Images/Clothes/1080_720p/tank_top.png";
                             break;
-
-
                     }
 
                 }
@@ -128,9 +138,9 @@ namespace cleverWeather2.Model
             * Find Legs Clothes Main
             * */
 
-            for (int i = 0; i < days.Today[0].Bottom.Length; i++)
+            for (int i = 0; i < days.Tomorrow[0].Bottom.Length; i++)
             {
-                if (days.Today[0].Bottom[i])
+                if (days.Tomorrow[0].Bottom[i])
                 {
                     switch (i)
                     {
@@ -141,6 +151,7 @@ namespace cleverWeather2.Model
                             _viewModel.ClothesLegs = "Images/Clothes/1080_720p/short_pants.png";
                             break;
 
+                        
 
                     }
 
@@ -150,9 +161,9 @@ namespace cleverWeather2.Model
             /**
              * Find Shoes (Accessori 3) Main
              * */
-            for (int i = 0; i < days.Today[0].Shoes.Length; i++)
+            for (int i = 0; i < days.Tomorrow[0].Shoes.Length; i++)
             {
-                if (days.Today[0].Shoes[i])
+                if (days.Tomorrow[0].Shoes[i])
                 {
                     switch (i)
                     {
@@ -173,10 +184,10 @@ namespace cleverWeather2.Model
              * Find Morning Accessories 
              * */
 
-            for (int i = 0; i < (days.Today[0].Accessories.Length) && (counter < 5); i++)
+            for (int i = 0; i < (days.Tomorrow[0].Accessories.Length) && (counter < 5); i++)
             {
 
-                if (days.Today[0].Accessories[i])
+                if (days.Tomorrow[0].Accessories[i])
                 {
                     if (counter == 0)
                     {
@@ -231,7 +242,7 @@ namespace cleverWeather2.Model
                         }
                     }
 
-                    else if(counter == 2)
+                    else if (counter == 2)
                     {
                         switch (i)
                         {
@@ -259,7 +270,7 @@ namespace cleverWeather2.Model
 
                     }
 
-                    else  if(counter == 3)
+                    else if (counter == 3)
                     {
                         switch (i)
                         {
@@ -326,10 +337,10 @@ namespace cleverWeather2.Model
              * Find Afternoon Accessories 
              * */
             counter = 0;
-            for (int i = 0; i < (days.Today[1].Accessories.Length) && (counter < 5); i++)
+            for (int i = 0; i < (days.Tomorrow[1].Accessories.Length) && (counter < 5); i++)
             {
 
-                if (days.Today[1].Accessories[i])
+                if (days.Tomorrow[1].Accessories[i])
                 {
                     if (counter == 0)
                     {
@@ -384,7 +395,7 @@ namespace cleverWeather2.Model
                         }
                     }
 
-                    else if(counter==2)
+                    else if (counter == 2)
                     {
                         switch (i)
                         {
@@ -440,7 +451,7 @@ namespace cleverWeather2.Model
 
                     }
 
-                    else 
+                    else
                     {
                         switch (i)
                         {
@@ -477,10 +488,10 @@ namespace cleverWeather2.Model
              * Find Night Accessories 
              * */
             counter = 0;
-            for (int i = 0; i < (days.Today[2].Accessories.Length) && (counter < 5); i++)
+            for (int i = 0; i < (days.Tomorrow[2].Accessories.Length) && (counter < 5); i++)
             {
 
-                if (days.Today[2].Accessories[i])
+                if (days.Tomorrow[2].Accessories[i])
                 {
                     if (counter == 0)
                     {
@@ -535,7 +546,7 @@ namespace cleverWeather2.Model
                         }
                     }
 
-                    else if(counter==2)
+                    else if (counter == 2)
                     {
                         switch (i)
                         {
@@ -563,7 +574,7 @@ namespace cleverWeather2.Model
 
                     }
 
-                     else if (counter == 3)
+                    else if (counter == 3)
                     {
                         switch (i)
                         {
@@ -627,45 +638,42 @@ namespace cleverWeather2.Model
 
             /*Morning Percentage
              * */
-            _viewModel.MorningPercentage = days.Today[0].ChanceOfRain.ToString() + "%";
+            _viewModel.MorningPercentage = days.Tomorrow[0].ChanceOfRain.ToString() + "%";
 
             /*Afternoon Percentage
             * */
-            _viewModel.AfternoonPercentage = days.Today[1].ChanceOfRain.ToString() + "%";
+            _viewModel.AfternoonPercentage = days.Tomorrow[1].ChanceOfRain.ToString() + "%";
 
             /*Night Percentage
             * */
-            _viewModel.NightPercentage = days.Today[2].ChanceOfRain.ToString() + "%";
+            _viewModel.NightPercentage = days.Tomorrow[2].ChanceOfRain.ToString() + "%";
 
 
 
             /**
              * Morning Temperature
              */
-            _viewModel.MorningTemperature = days.Today[0].Temperature;
+            _viewModel.MorningTemperature = days.Tomorrow[0].Temperature;
 
 
             /**
              * Afternoon Temperature
              */
-            _viewModel.AfternoonTemperature = days.Today[1].Temperature;
+            _viewModel.AfternoonTemperature = days.Tomorrow[1].Temperature;
 
 
             /**
              * NIght Temperature
              */
-            _viewModel.NightTemperature = days.Today[2].Temperature;
-
+            _viewModel.NightTemperature = days.Tomorrow[2].Temperature;
 
             //City
-           
-            _viewModel.City = Calculation.cityString;
-
+            //If the city in view matches the city from the other day, don't fetch
+            
+                _viewModel.City = Calculation.cityString;
         }
 
-   
- 
+
     }
-   
 }
 

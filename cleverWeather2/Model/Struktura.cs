@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace cleverWeather2
 {
+    /// <summary>
+    /// Contains Boolean fields that indicate whether the icon should be displayed or not
+    /// </summary>
     public class Struktura
     {
         public Boolean[] Top;
@@ -19,10 +22,10 @@ namespace cleverWeather2
 
         public Struktura()
         {
-            Top = new Boolean[2]; // kratka, duga majica
+            Top = new Boolean[3]; // kratka, duga majica, kratka majica
             Bottom = new Boolean[2]; // duge, kratke hlace
             Shoes = new Boolean[2]; // cizme, tenisice
-            Accessories = new Boolean[5]; // sunglasses, light jacket, winter jacket, winter hat, gloves
+            Accessories = new Boolean[6]; // sunglasses, light jacket, winter jacket, winter hat, gloves, scarf
             WeatherConditions = new Boolean[3]; // rain, snow, sun
 
         }

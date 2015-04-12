@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.Connectivity;
+using Windows.UI.Popups;
 
 namespace cleverWeather2.Model
 {
     class UpdateView
     {
         ViewModelTomorrow _viewModel;
-
+        private bool isConnected = NetworkInterface.GetIsNetworkAvailable();
         //Constructor
         public UpdateView(ViewModelTomorrow vmt)
         {
@@ -20,15 +23,48 @@ namespace cleverWeather2.Model
         }
 
 
-       /* Explained problem with async and await
-        * http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
-        * */
+        /* Explained problem with async and await
+         * http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+         * */
+
+
+        private async void CheckInternet()
+        {
+
+            isConnected = NetworkInterface.GetIsNetworkAvailable();
+            if (!isConnected)
+            {
+                await new MessageDialog("No internet connection is avaliable.").ShowAsync();
+            }
+
+            else
+            {
+                ConnectionProfile InternetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
+                NetworkConnectivityLevel connection = InternetConnectionProfile.GetNetworkConnectivityLevel();
+                if (connection == NetworkConnectivityLevel.InternetAccess)
+                {
+                    isConnected = true;
+
+                }
+                else
+                {
+                    isConnected = false;
+                    await new MessageDialog("No internet connection is avaliable.").ShowAsync();
+                }
+
+
+            }
+
+        }
 
         public async void GetData()
         {
-            var myTask = await posao();
-            RefreshData(myTask);
-
+            CheckInternet();
+            if (isConnected == true)
+            {
+                var myTask = await posao();
+                RefreshData(myTask);
+            }
         }
 
         /// <summary>

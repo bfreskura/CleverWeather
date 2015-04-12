@@ -1,0 +1,2 @@
+MainPackage=C:\Users\Barty\documents\visual studio 2013\Projects\cleverWeather2\cleverWeather2\bin\Release\cleverWeather2_1.1.0.9_Bundle\cleverWeather2_1.1.0.9_AnyCPU.appx
+SymbolPackage=C:\Users\Barty\Desktop\cleverWeather2_1.1.0.9_Test\cleverWeather2_1.1.0.9_AnyCPU.appxsym
